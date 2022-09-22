@@ -16,6 +16,10 @@ class ListingViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+    init {
+        getData()
+    }
+
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
 

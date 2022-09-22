@@ -50,25 +50,36 @@ class SpaceXAdapter(private val listener: OnItemClickLisener) :
                 missionName.setOnClickListener {
                     listener.onItemClick(
                         text = data.mission_name,
-                        data = data
+                        data = data,
+                        isViewGroup = false
                     )
                 }
                 rocketName.setOnClickListener {
                     listener.onItemClick(
                         text = data.rocket.rocket_name,
-                        data = data
+                        data = data,
+                        isViewGroup = false
                     )
                 }
                 launchDate.setOnClickListener {
                     listener.onItemClick(
                         text = data.launch_date_local,
-                        data = data
+                        data = data,
+                        isViewGroup = false
                     )
                 }
                 launchSite.setOnClickListener {
                     listener.onItemClick(
                         text = data.launch_site.site_name,
-                        data = data
+                        data = data,
+                        isViewGroup = false
+                    )
+                }
+                this.root.setOnClickListener {
+                    listener.onItemClick(
+                        text = "",
+                        data = data,
+                        isViewGroup = true
                     )
                 }
             }
@@ -76,7 +87,7 @@ class SpaceXAdapter(private val listener: OnItemClickLisener) :
     }
 
     interface OnItemClickLisener {
-        fun onItemClick(text: String, data: DataResponseItem)
+        fun onItemClick(text: String, data: DataResponseItem, isViewGroup: Boolean)
     }
 
     override fun getItemCount() = list.size

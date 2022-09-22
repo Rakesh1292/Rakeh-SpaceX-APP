@@ -38,7 +38,6 @@ class ListingFragment : Fragment(R.layout.fragment_list),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData()
     }
 
     private fun setupLayout() {
@@ -79,8 +78,8 @@ class ListingFragment : Fragment(R.layout.fragment_list),
             }
             it?.let { isLoading ->
                 binding.apply {
-                    progressBar.visibility = if(isLoading) View.VISIBLE else View.GONE
-                    recyclerView.visibility = if(isLoading) View.GONE else View.VISIBLE
+                    progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                    recyclerView.visibility = if (isLoading) View.GONE else View.VISIBLE
                     if (!isLoading && viewModel.list.value.isNullOrEmpty()) {
                         buttonRetry.visibility = View.VISIBLE
                         textViewEmpty.visibility = View.VISIBLE
@@ -95,11 +94,14 @@ class ListingFragment : Fragment(R.layout.fragment_list),
         _binding = null
     }
 
-    override fun onItemClick(text: String, data: DataResponseItem) {
-        Toast.makeText(requireActivity(), text, Toast.LENGTH_LONG).show()
-        val bundle = Bundle()
-        bundle.putParcelable("data", data)
-        val action = ListingFragmentDirections.actionGalleryFragmentToDetailFragment(bundle)
-        findNavController().navigate(action)
+    override fun onItemClick(text: String, data: DataResponseItem, isViewGroup: Boolean) {
+        if (isViewGroup) {
+            val bundle = Bundle()
+            bundle.putParcelable("data", data)
+            val action = ListingFragmentDirections.actionGalleryFragmentToDetailFragment(bundle)
+            findNavController().navigate(action)
+        } else {
+            Toast.makeText(requireActivity(), text, Toast.LENGTH_LONG).show()
+        }
     }
 }
