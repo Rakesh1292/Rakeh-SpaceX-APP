@@ -36,8 +36,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         args.data.let {
-           /* val dataResponse = it.getParcelable("data", DataResponseItem::class.java)!!
-            setLayout(dataResponse)*/
+            val dataResponse = it.get("data") as DataResponseItem
+            setLayout(dataResponse)
         }
     }
 
@@ -52,7 +52,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    binding.progressBar.isVisible = false
                     return false
                 }
 
@@ -63,12 +62,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    binding.progressBar.isVisible = true
                     return false
                 }
             }).into(binding.imageView)
 
         binding.mission.text = data.mission_name
         binding.launchDate.text = data.launch_date_local
+        binding.launchSite.text = data.launch_site.site_name
+        binding.rocketName.text = data.rocket.rocket_name
     }
 }
